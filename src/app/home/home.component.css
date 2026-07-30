@@ -8,7 +8,27 @@
   gap: 4rem;
   padding: 2rem;
   overflow: hidden;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  background: transparent;
+}
+
+/* ===== Reveal al hacer scroll (compartido con las demás páginas) ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* Partículas de fondo */
@@ -484,7 +504,7 @@
 /* Skills Section */
 .skills {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: transparent;
 }
 
 .container {
@@ -581,7 +601,7 @@
 
 .technologies-bubbles {
   padding: 4rem 2rem;
-  background: #0f172a;
+  background: transparent;
   overflow: hidden;
   position: relative;
 }
@@ -810,7 +830,7 @@
 /* Technologies Grid Section */
 .technologies-grid {
   padding: 6rem 2rem;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  background: transparent;
 }
 
 .tech-categories {
@@ -915,7 +935,7 @@
 .cta {
   position: relative;
   padding: 8rem 2rem;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: transparent;
   overflow: hidden;
 }
 

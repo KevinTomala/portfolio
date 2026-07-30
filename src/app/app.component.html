@@ -1,3 +1,20 @@
+<!-- Video de fondo compartido, scrubbed por scroll (ver VideoScrubService) -->
+<div class="site-video-layer" aria-hidden="true">
+  <video
+    #siteVideo
+    class="site-video"
+    muted
+    playsinline
+    preload="auto"
+    poster="assets/images/fondo-landing.png"
+  >
+    <source src="assets/images/galaxy-scroll.mp4" type="video/mp4" />
+  </video>
+  <div class="site-video-scrim"></div>
+</div>
+
+<div class="scroll-progress" [style.width.%]="scrollProgress$ | async" aria-hidden="true"></div>
+
 <!-- Header -->
 <header class="header">
   <button class="menu-btn" (click)="toggleSidebar()">

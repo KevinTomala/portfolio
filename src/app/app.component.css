@@ -455,8 +455,54 @@ body {
   color: white;
 }
 
+/* Video de fondo compartido (scrubbed por scroll) */
+.site-video-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #04030b;
+  pointer-events: none;
+}
+
+.site-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.site-video-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 3, 11, 0.35) 0%, rgba(4, 3, 11, 0.65) 60%, rgba(4, 3, 11, 0.9) 100%),
+    radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.25), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(236, 72, 153, 0.2), transparent 45%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-video {
+    display: none;
+  }
+}
+
+/* Barra de progreso de scroll, visible en todo el sitio */
+.scroll-progress {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ec4899, #8b5cf6, #2dd4bf);
+  z-index: 90;
+  transition: width 0.1s linear;
+}
+
 /* Main Content */
 .main-content {
+  position: relative;
+  z-index: 1;
   padding-top: 64px;
   padding-left: 0;
   padding-right: 0;

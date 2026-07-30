@@ -1,7 +1,9 @@
-import { Component, HostListener } from '@angular/core'; // Agrega HostListener
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, ViewChild } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Agrega FormsModule
+import { Subscription, filter } from 'rxjs';
+import { VideoScrubService } from './shared/video-scrub.service';
 
 interface MenuItem {
   id: string;
@@ -24,7 +26,42 @@ interface SubMenuItem {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit, OnDestroy {
+  @ViewChild('siteVideo') siteVideoRef?: ElementRef<HTMLVideoElement>;
+
+  private routerSub?: Subscription;
+
+  constructor(private router: Router, private videoScrub: VideoScrubService) {}
+
+  ngAfterViewInit() {
+    if (this.siteVideoRef) {
+      this.videoScrub.setVideoElement(this.siteVideoRef.nativeElement);
+    }
+    this.videoScrub.setRoute(this.router.url);
+
+    this.routerSub = this.router.events
+      .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
+      .subscribe((event) => this.videoScrub.setRoute(event.urlAfterRedirects));
+
+    this.onScroll();
+  }
+
+  ngOnDestroy() {
+    this.routerSub?.unsubscribe();
+  }
+
+  @HostListener('window:scroll')
+  onScroll() {
+    const doc = document.documentElement;
+    const maxScroll = doc.scrollHeight - doc.clientHeight;
+    const ratio = maxScroll > 0 ? (window.scrollY || doc.scrollTop) / maxScroll : 0;
+    this.videoScrub.setScrollRatio(ratio);
+  }
+
+  get scrollProgress$() {
+    return this.videoScrub.scrollProgress$;
+  }
+
   isSidebarOpen = false;
   isProfileMenuOpen = false;
   isSearchActive = false;

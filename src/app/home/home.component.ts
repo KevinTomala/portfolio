@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ElementRef, OnInit, OnDestroy, AfterViewInit, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { initScrollReveal } from '../shared/scroll-reveal';
 
 interface Technology {
   name: string;
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     { name: 'Vue.js', logo: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/vuedotjs.svg', color: '#4FC08D', size: 68 }
   ];
 
+  private revealObserver: IntersectionObserver | null = null;
   private animationId: any;
   private containerWidth = 0;
   private containerHeight = 0;
@@ -107,6 +109,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     { number: '15+', label: 'Tecnologías dominadas' }
   ];
 
+  constructor(private elRef: ElementRef<HTMLElement>) {}
+
   ngOnInit() {
     this.typeWriter();
     this.bubbleTechnologies.forEach(tech => {
@@ -120,6 +124,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.initBubbles();
       this.animate();
     }, 100);
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.revealObserver = initScrollReveal(this.elRef.nativeElement, reducedMotion);
   }
   adjustBubbleSizes() {
     const screenWidth = window.innerWidth;
@@ -143,6 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
     }
+    this.revealObserver?.disconnect();
   }
 
   // Detectar movimiento del mouse

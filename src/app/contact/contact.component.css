@@ -1,22 +1,6 @@
 :host {
   display: block;
-  --hero-shift: 0px;
-  --hero-scale: 1;
-  --hero-fade: 1;
-  background: linear-gradient(180deg, #04030b 0%, #0b1120 45%, #04040a 100%);
   color: #e2e8f0;
-  overflow: hidden;
-}
-
-/* Barra de progreso de scroll (efecto "reproduciendo") */
-.scroll-progress {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #ec4899, #6366f1, #22c55e);
-  z-index: 90;
-  transition: width 0.1s linear;
 }
 
 /* ===== Hero ===== */
@@ -26,26 +10,6 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: -6%;
-  background-image: url('/assets/images/fondo-landing.png');
-  background-size: cover;
-  background-position: 50% 15%;
-  transform: translateY(var(--hero-shift)) scale(var(--hero-scale));
-  transition: transform 0.05s linear;
-  will-change: transform;
-}
-
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(4, 3, 11, 0.55) 0%, rgba(4, 3, 11, 0.78) 55%, #04040a 100%),
-    radial-gradient(circle at 15% 25%, rgba(236, 72, 153, 0.25), transparent 45%),
-    radial-gradient(circle at 80% 75%, rgba(45, 212, 191, 0.2), transparent 45%);
 }
 
 .hero-particles {
@@ -84,13 +48,6 @@
   position: relative;
   z-index: 1;
   max-width: 720px;
-  opacity: var(--hero-fade);
-  animation: fadeInUp 0.8s ease-out;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-eyebrow {
@@ -155,7 +112,20 @@
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* ===== Escenas (form / info) reveladas al hacer scroll ===== */
+/* ===== Reveal al hacer scroll (compartido con las demás páginas) ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: calc(var(--i, 0) * 0.08s);
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== Escenas (form / info) ===== */
 .scene {
   position: relative;
   padding: clamp(4rem, 10vw, 7rem) 0;
@@ -169,18 +139,6 @@
   text-transform: uppercase;
   font-size: 0.75rem;
   margin-bottom: 1rem;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  transition-delay: calc(var(--i, 0) * 0.08s);
-}
-
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 .form-card {
@@ -282,10 +240,6 @@
   .reveal {
     transition: none;
     opacity: 1;
-    transform: none;
-  }
-  .hero-bg {
-    transition: none;
     transform: none;
   }
   .scroll-cue-line,

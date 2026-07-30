@@ -1,48 +1,81 @@
-<section class="contact-header">
-  <div class="container">
+<div class="scroll-progress" [style.width.%]="scrollProgress" aria-hidden="true"></div>
+
+<section class="contact-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-particles" aria-hidden="true">
+    <span class="particle" *ngFor="let i of [1,2,3,4,5,6,7,8]"></span>
+  </div>
+
+  <div class="container hero-content">
+    <span class="hero-eyebrow">
+      <span class="status-dot"></span>
+      Disponible para nuevos proyectos
+    </span>
     <h1>Contacto</h1>
     <p>¿Quieres colaborar conmigo o tienes alguna consulta? Envíame un mensaje, estoy disponible para oportunidades remotas e internacionales.</p>
+
+    <a href="#contact-form" class="scroll-cue">
+      <span>Desliza para continuar</span>
+      <span class="scroll-cue-line"></span>
+    </a>
   </div>
 </section>
 
-<section class="contact-form">
+<section class="scene" id="contact-form">
   <div class="container">
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-      <label>
-        Nombre:
-        <input type="text" formControlName="name" />
-        <span *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
-          El nombre es obligatorio.
-        </span>
-      </label>
+    <div class="reveal form-card">
+      <span class="scene-tag">01 · Escríbeme</span>
+      <h2>Cuéntame sobre tu proyecto</h2>
 
-      <label>
-        Correo electrónico:
-        <input type="email" formControlName="email" />
-        <span *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
-          Ingresa un correo válido.
-        </span>
-      </label>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <label>
+          Nombre
+          <input type="text" formControlName="name" />
+          <span class="field-error" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+            El nombre es obligatorio.
+          </span>
+        </label>
 
-      <label>
-        Mensaje:
-        <textarea rows="5" formControlName="message"></textarea>
-        <span *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
-          El mensaje debe tener al menos 10 caracteres.
-        </span>
-      </label>
+        <label>
+          Correo electrónico
+          <input type="email" formControlName="email" />
+          <span class="field-error" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+            Ingresa un correo válido.
+          </span>
+        </label>
 
-      <button type="submit" class="btn">Enviar mensaje</button>
-    </form>
+        <label>
+          Mensaje
+          <textarea rows="5" formControlName="message"></textarea>
+          <span class="field-error" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+            El mensaje debe tener al menos 10 caracteres.
+          </span>
+        </label>
+
+        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+      </form>
+    </div>
   </div>
 </section>
 
-<section class="contact-info">
+<section class="scene" id="contact-info">
   <div class="container">
-    <ul>
-      <li>📧 Email: <a href="mailto:kevintomala.27&#64;gmail.com">kevintomala.dev&#64;gmail.com</a></li>
-      <li>💼 LinkedIn: <a href="https://linkedin.com/in/kevintomala" target="_blank">linkedin.com/in/kevintomala</a></li>
-      <li>📁 GitHub: <a href="https://github.com/kevintomala" target="_blank">github.com/kevintomala</a></li>
+    <span class="reveal scene-tag">02 · Encuéntrame en</span>
+
+    <ul class="info-list">
+      <li class="reveal info-item" style="--i:0">
+        <span class="info-icon">📧</span>
+        <a href="mailto:kevintomala.27&#64;gmail.com">kevintomala.27&#64;gmail.com</a>
+      </li>
+      <li class="reveal info-item" style="--i:1">
+        <span class="info-icon">💼</span>
+        <a href="https://linkedin.com/in/kevintomala" target="_blank" rel="noopener">linkedin.com/in/kevintomala</a>
+      </li>
+      <li class="reveal info-item" style="--i:2">
+        <span class="info-icon">📁</span>
+        <a href="https://github.com/kevintomala" target="_blank" rel="noopener">github.com/kevintomala</a>
+      </li>
     </ul>
   </div>
 </section>

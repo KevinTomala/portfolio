@@ -31,8 +31,31 @@
 }
 
 .about-header {
+  position: relative;
   text-align: center;
   padding: clamp(4rem, 10vw, 6rem) 2rem 3rem;
+  overflow: hidden;
+}
+
+.about-header-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/images/fondo-landing.png');
+  background-size: cover;
+  background-position: 50% 15%;
+}
+
+.about-header-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 3, 11, 0.55) 0%, rgba(4, 3, 11, 0.8) 70%, rgba(4, 3, 11, 0.95) 100%),
+    radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.2), transparent 45%);
+}
+
+.about-header .container {
+  position: relative;
+  z-index: 1;
 }
 
 .header-badge {

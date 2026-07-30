@@ -35,15 +35,39 @@ export class PortfolioComponent implements OnInit, OnDestroy {
   projects: Project[] = [
     {
       title: 'ADEMY - Sistema de Administración Academica',
-      description: 'Plataforma para gestion de matriculas, notas y reportes con arquitectura modular.',
-      technologies: ['ReactJS', 'Node.js', 'Docker', 'MySQL'],
-      siteUrl: 'https://sg-academico.vercel.app/',
-      repoUrl: 'https://github.com/KevinTomala/sg_academico',
+      description: 'Plataforma integral para gestionar matriculas, horarios, diplomas y finanzas en instituciones educativas, con control de acceso granular por roles y modulos.',
+      technologies: ['React', 'Node.js', 'MySQL', 'Docker', 'Socket.io'],
+      siteUrl: 'https://ademy-theta.vercel.app/',
+      repoUrl: 'https://github.com/KevinTomala/ademy',
       status: 'Listo',
       category: 'Web App',
       contributors: [
         { name: 'Kevin Tomala', githubUrl: 'https://github.com/kevintomala' },
         { name: 'SamVp29', githubUrl: 'https://github.com/SamVp29' }
+      ]
+    },
+    {
+      title: 'Docco',
+      description: 'Motor de verificacion documental con pipeline OCR de 3 capas adaptativas que analiza, extrae, puntua y devuelve resultados via webhook a sistemas externos.',
+      technologies: ['Python', 'FastAPI', 'React', 'MySQL', 'Cloudflare R2'],
+      siteUrl: 'https://docco-seven.vercel.app/',
+      repoUrl: 'https://github.com/KevinTomala/docco',
+      status: 'Listo',
+      category: 'Web App',
+      contributors: [
+        { name: 'Kevin Tomala', githubUrl: 'https://github.com/kevintomala' }
+      ]
+    },
+    {
+      title: 'EmpleoFácil',
+      description: 'Plataforma de empleo que conecta empresas con candidatos verificados por Docco, con mensajeria en tiempo real, pagos integrados y sincronizacion con ADEMY.',
+      technologies: ['React', 'Node.js', 'PostgreSQL', 'Socket.io'],
+      siteUrl: 'https://empleofacil.vercel.app/',
+      repoUrl: 'https://github.com/KevinTomala/empleofacil',
+      status: 'Listo',
+      category: 'Web App',
+      contributors: [
+        { name: 'Kevin Tomala', githubUrl: 'https://github.com/kevintomala' }
       ]
     },
     {
@@ -108,11 +132,11 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     },
     {
       title: 'Alpha Technologies',
-      description: 'Pagina corporativa en planificacion y definicion de marca.',
-      technologies: ['Branding', 'UX', 'Web'],
-      status: 'En progreso',
+      description: 'Sitio corporativo con showcase 3D interactivo de los productos propios (ADEMY, Docco y EmpleoFacil) y de los servicios de desarrollo a medida.',
+      technologies: ['React', 'Three.js', 'GSAP', 'Vite'],
+      siteUrl: 'https://alphatechnologies.vercel.app/',
+      status: 'Listo',
       category: 'Web',
-      previewLabel: 'Sitio en planificacion',
       contributors: [
         { name: 'Kevin Tomala', githubUrl: 'https://github.com/kevintomala' }
       ]

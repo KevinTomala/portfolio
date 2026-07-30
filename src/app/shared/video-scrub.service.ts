@@ -51,14 +51,23 @@ export class VideoScrubService {
     this.seekToSegmentStart();
   }
 
-  /** Llamar en cada scroll con el ratio (0-1) de la página activa. */
+  /**
+   * Ratio (0-1) del scroll dentro de la "zona de video" (una pantalla de alto),
+   * no de la página completa — si no, en páginas largas el segmento (solo 25%
+   * del clip) queda diluido en miles de px y da la sensación de que no avanza.
+   */
   setScrollRatio(ratio: number) {
     const clamped = Math.min(1, Math.max(0, ratio));
-    this.scrollProgressSubject.next(clamped * 100);
 
     if (!this.videoEl || this.reducedMotion || !this.duration) return;
     const { start, end } = this.segment;
     this.videoEl.currentTime = (start + clamped * (end - start)) * this.duration;
+  }
+
+  /** Ratio (0-1) del scroll de la página completa, para la barra de progreso. */
+  setPageProgress(ratio: number) {
+    const clamped = Math.min(1, Math.max(0, ratio));
+    this.scrollProgressSubject.next(clamped * 100);
   }
 
   private seekToSegmentStart() {

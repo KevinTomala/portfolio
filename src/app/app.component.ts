@@ -53,9 +53,16 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:scroll')
   onScroll() {
     const doc = document.documentElement;
+    const scrollTop = window.scrollY || doc.scrollTop;
+
     const maxScroll = doc.scrollHeight - doc.clientHeight;
-    const ratio = maxScroll > 0 ? (window.scrollY || doc.scrollTop) / maxScroll : 0;
-    this.videoScrub.setScrollRatio(ratio);
+    const pageRatio = maxScroll > 0 ? scrollTop / maxScroll : 0;
+    this.videoScrub.setPageProgress(pageRatio);
+
+    // El video termina de reproducirse en una pantalla de scroll y luego
+    // se mantiene fijo en su último cuadro el resto de la página.
+    const videoRatio = doc.clientHeight > 0 ? scrollTop / doc.clientHeight : 0;
+    this.videoScrub.setScrollRatio(videoRatio);
   }
 
   get scrollProgress$() {

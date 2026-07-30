@@ -6,12 +6,18 @@ interface Segment {
   end: number;
 }
 
-/** Orden de las rutas dentro del video compartido (ver app.routes.ts). */
+/**
+ * Tramo del video compartido por ruta. No sigue el orden de app.routes.ts:
+ * se asignó a Home el tramo con más movimiento visible (el zoom dramático
+ * final, 7.5-10s) y a About el más estático (la toma fija inicial, 0-2.5s),
+ * ya que en un clip de solo 10s cada cuarto tiene una cantidad de "acción"
+ * muy distinta.
+ */
 const ROUTE_SEGMENTS: Record<string, Segment> = {
-  '': { start: 0, end: 0.25 },
+  '': { start: 0.75, end: 1 },
   portfolio: { start: 0.25, end: 0.5 },
   contact: { start: 0.5, end: 0.75 },
-  about: { start: 0.75, end: 1 },
+  about: { start: 0, end: 0.25 },
 };
 
 @Injectable({ providedIn: 'root' })

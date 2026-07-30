@@ -12,6 +12,7 @@ import { initScrollReveal } from '../shared/scroll-reveal';
 })
 export class ContactComponent implements AfterViewInit, OnDestroy {
   contactForm: FormGroup;
+  submitted = false;
 
   private revealObserver: IntersectionObserver | null = null;
 
@@ -35,10 +36,14 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   onSubmit() {
     if (this.contactForm.valid) {
       console.log('Mensaje enviado:', this.contactForm.value);
-      alert('¡Gracias por tu mensaje! Te responderé pronto.');
       this.contactForm.reset();
+      this.submitted = true;
     } else {
       this.contactForm.markAllAsTouched();
     }
+  }
+
+  sendAnother() {
+    this.submitted = false;
   }
 }

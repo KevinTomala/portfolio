@@ -24,7 +24,7 @@
       <span class="scene-tag">01 · Escríbeme</span>
       <h2>Cuéntame sobre tu proyecto</h2>
 
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <form *ngIf="!submitted" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
         <label>
           Nombre
           <input type="text" formControlName="name" />
@@ -51,6 +51,13 @@
 
         <button type="submit" class="btn btn-primary">Enviar mensaje</button>
       </form>
+
+      <div class="success-message" *ngIf="submitted">
+        <span class="success-icon">✓</span>
+        <h3>¡Mensaje enviado!</h3>
+        <p>Gracias por escribirme, te responderé pronto.</p>
+        <button type="button" class="btn btn-ghost" (click)="sendAnother()">Enviar otro mensaje</button>
+      </div>
     </div>
   </div>
 </section>

@@ -49,7 +49,11 @@
           </span>
         </label>
 
-        <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        <span class="field-error" *ngIf="errorMessage">{{ errorMessage }}</span>
+
+        <button type="submit" class="btn btn-primary" [disabled]="sending">
+          {{ sending ? 'Enviando…' : 'Enviar mensaje' }}
+        </button>
       </form>
 
       <div class="success-message" *ngIf="submitted">

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { initScrollReveal } from '../shared/scroll-reveal';
 
+const CONTACT_ENDPOINT = 'https://alphatechnologies.vercel.app/api/contacto';
+
 @Component({
   selector: 'app-contact',
   standalone: true,
@@ -13,6 +15,8 @@ import { initScrollReveal } from '../shared/scroll-reveal';
 export class ContactComponent implements AfterViewInit, OnDestroy {
   contactForm: FormGroup;
   submitted = false;
+  sending = false;
+  errorMessage = '';
 
   private revealObserver: IntersectionObserver | null = null;
 
@@ -33,17 +37,39 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     this.revealObserver?.disconnect();
   }
 
-  onSubmit() {
-    if (this.contactForm.valid) {
-      console.log('Mensaje enviado:', this.contactForm.value);
+  async onSubmit() {
+    if (!this.contactForm.valid) {
+      this.contactForm.markAllAsTouched();
+      return;
+    }
+
+    this.sending = true;
+    this.errorMessage = '';
+
+    const { name, email, message } = this.contactForm.value;
+
+    try {
+      const response = await fetch(CONTACT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre: name, email, mensaje: message }),
+      });
+
+      if (!response.ok) {
+        throw new Error('CONTACT_EMAIL_SEND_FAILED');
+      }
+
       this.contactForm.reset();
       this.submitted = true;
-    } else {
-      this.contactForm.markAllAsTouched();
+    } catch {
+      this.errorMessage = 'No se pudo enviar tu mensaje. Intenta de nuevo o escríbeme directo a kevintomala.27@gmail.com.';
+    } finally {
+      this.sending = false;
     }
   }
 
   sendAnother() {
     this.submitted = false;
+    this.errorMessage = '';
   }
 }

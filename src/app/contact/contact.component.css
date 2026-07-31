@@ -249,6 +249,11 @@
   align-self: flex-start;
 }
 
+.form-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .info-list {
   list-style: none;
   padding: 0;
